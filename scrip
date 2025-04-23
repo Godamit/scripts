@@ -1,0 +1,649 @@
+LINUX SCRIPTS -
+
+
+Experiment 3
+
+
+area /volume
+
+echo "Enter the value of radius :" 
+read r 
+pi=3.14 
+area=$(echo "4*$pi*$r*$r" | bc)
+circumference=$(echo "2*$pi*$r" | bc)
+volume=$(echo "1.33*$pi*$r*$r*$r" | bc) 
+echo "Area = $area" 
+echo "Circumference =$circumference" 
+echo "Volume =$volume
+
+
+simple interest
+
+read -p "Enter the principal amount=" p 
+read -p "Enter the rate of interest=" r 
+read -p "Enter the time (in years)=" n 
+Simple_interest=$(echo "$p*$n*$r/100" | bc) 
+echo "simple interest is $simple_interest" 
+
+
+swapping two numbers
+
+read -p "enter first no:" num1 
+read -p "enter second no:" num2 
+echo "before swapping: num1 = $num1 and num2 = $num2" 
+num1=$((num1 +num2)) 
+num2=$((num1-num2)) 
+num1=$((num1-num2)) 
+echo "after swapping : num1 = $num1 and num2 = $num2"
+
+
+
+
+Maximum in 3 no.s
+
+read -p "Enter first no: " num1 
+read -p "Enter second no: " num2 
+read -p "Enter third no: " num3 
+max=$num1 
+if [ $num2 -gt $max ]; then 
+	max=$num2 
+elif [ $num3 -gt $max ]; then 
+	max=$num3 
+fi 
+echo "$max is The Greatest Number of all 3"
+
+
+Write script to demonstrate all command line argument  
+
+echo "total arguments: $#" 
+echo "all arguments values: $@" 
+echo "first-> $1" 
+echo "second-> $2" 
+echo "name of script is : $0" 
+echo "process id is $$ "
+
+
+Given sides of Triangle and decide whether the triangle is isosceles, equilateral, scalene, obtuse, acute, and right Write script for same. 
+
+read -p "Enter the first side: " side1 
+read -p "Enter the Second side: " side2 
+read -p "Enter the Third Side: " side3 
+if [ $side1 -eq $side2 ] && [ $side2 -eq $side3 ]; then
+echo "Equilateral triangle" 
+elif [ $side1 -eq $side2 ] || [ $side2 -eq $side3 ] || [ $side1 -eq $side3 ]; then 
+echo "Isosceles triangle" 
+else 
+echo "scalene triangel"
+fi
+
+
+
+Write to check whether entered string is palindrome or not 
+
+read -p "enter the string without space: " str 
+revstr=$(echo "$str" | rev) 
+if [ "$str"="$revstr" ]; then 
+echo "it is pallindrome" 
+else 
+echo "it is not a pallindrome" 
+fi
+
+
+
+
+
+
+
+exp3 complex codes:
+
+
+
+
+
+
+
+echo "Enter the file name:"
+read file
+
+echo "Enter the directory name:"
+read dir
+
+# Check if the file exists
+if [ -e "$file" ]; then
+    echo "File '$file' exists."
+else
+    echo "File '$file' does not exist."
+fi
+
+# Check if it's a regular file
+if [ -f "$file" ]; then
+    echo "'$file' is a regular file."
+else
+    echo "'$file' is not a regular file."
+fi
+
+# Check if the directory exists
+if [ -d "$dir" ]; then
+    echo "Directory '$dir' exists."
+else
+    echo "Directory '$dir' does not exist."
+fi
+
+# Check readability
+if [ -r "$file" ]; then
+    echo "'$file' is readable."
+else
+    echo "'$file' is not readable."
+fi
+
+# Check writability
+if [ -w "$file" ]; then
+    echo "'$file' is writable."
+else
+    echo "'$file' is not writable."
+fi
+
+# Check executability
+if [ -x "$file" ]; then
+    echo "'$file' is executable."
+else
+    echo "'$file' is not executable."
+fi
+
+
+
+
+
+
+
+
+
+menu driven calculator
+
+echo "arithmetic opeeration menu" 
+echo "1>addition" echo "2>subtraction" echo "3>multiplication" echo "4>division" 
+echo -n "please choose an option(1/2/3/4):" 
+read choice 
+echo -n "enter the first no :" 
+read num1 
+echo -n "enter the second no :" 
+read num2
+case $choice in 1)
+result=$((num1+num2)) 
+echo "the result of addition is $result" ;;
+2) result=$((num1-num2))
+echo "the result of subtraction is $result" ;; 
+3) result=$((num1*num2))
+echo "the result of multiplication is $result" ;; 
+4) result=$((num1/num2))
+echo "the result of division is $result" ;;
+*) echo “invalid choice”;;
+esac
+
+
+
+
+Write script to perform following String Operation 
+
+    • Find Length of String  
+    • Find and Replace String  
+    • To Concatenate String 
+    • Reversing the string 
+
+read -p "Enter a string: " 
+str length=${#str} 
+echo "Length of the string: $length" 
+read -p "Enter the word to find: " find 
+read -p "Enter the word to replace with: " 
+replace new_str=${str//$find/$replace} 
+echo "Updated string: $new_str" 
+read -p "Enter another string to concatenate: " str2 
+concatenated="$str$str2" 
+echo "Concatenated String: $concatenated" 
+reversed=$(echo "$str" | rev) 
+echo "Reversed String: $reversed"
+
+
+
+
+
+
+Write shells script to display menu for Celsius to Fahrenheit and Fahrenheit to Celsius, Read the temperature accordingly and convert. 
+
+echo "1. Celsius to Fahrenheit" 
+echo "2. Fahrenheit to Celsius" 
+read -p "Enter your choice: " choice 
+case $choice in 
+1) read -p "Enter the temperature in Celsius: " celsius
+fahrenheit=$(echo "scale=2; ($celsius * 9/5) + 32" | bc) 
+echo "The converted temperature is $fahrenheit°F";; 
+2) read -p "Enter the temperature in Fahrenheit: " fahrenheit
+celsius=$(echo "scale=2; ($fahrenheit - 32) * 5/9" | bc) 
+echo "The converted temperature is $celsius°C";; 
+*) echo "Invalid choice. Please select 1 or 2.";;
+esac
+
+
+       Experiment 4
+
+
+
+Write shell script to find reverse of 5 digit number using while loop
+
+
+echo "Enter a 5-digit number:"
+read num
+rev=0
+while [ $num -gt 0 ]; do
+remainder=$((num%10));
+rev=$((rev*10+remainder));
+num=$((num/10));
+done
+echo "Reveresed number : $rev"
+
+
+Write shell script to find factorial of number using while Loop
+
+
+
+echo "Enter a 5-digit number:"
+read num
+rev=0
+while [ $num -gt 0 ]; do
+remainder=$((num%10));
+rev=$((rev*10+remainder));
+num=$((num/10));
+done
+echo "Reveresed number : $rev"
+
+
+Write shell script to generate Fibo series upto the limit entered by user(for)
+
+#Fibo using for loop
+echo "Enter limit for fibonacci series: "
+read n
+a=0
+b=1
+count=0
+echo "Fibonacci series:"
+for ((i=0; i<n; i++)); do
+echo -n "$a "
+temp=$((a+b))
+a=$b
+b=$temp
+done
+echo
+
+
+
+Write shell script to generate prime number between limit specified by user using for loop
+
+cho "Enter lower limit:"
+read low
+echo "Enter upper limit:"
+read high
+echo "prime numbers between $low and $high are:"
+for ((num=low; num<=high; num++)); do
+is_prime=1
+for ((i=2; i<num; i++)); do
+if [ $((num%i)) -eq 0 ]; then
+is_prime=0
+break
+fi
+done
+if [ $is_prime -eq 1 ] && [ $sum -gt 1 ]; then
+echo -n "$num "
+fi
+done
+
+
+
+
+Write shell script to generate table of the number specified by the user using for in Loop
+
+echo "Enter a number:"
+read num
+echo "Multiplication table of $num:"
+for ((i=1; i<=10; i++)); do
+echo "$num X $i = $((num*i))"
+done
+
+Write shell script to generate even number between limit specified by user
+
+
+echo "Enter lower limit:"
+read low
+echo "Enter upper limit:"
+read high
+echo "even numbers between $low and $high:"
+for ((i=low; i<=high; i++)); do
+if [ $((i%2)) -eq 0 ]; then
+echo -n "$i "
+fi
+done
+echo
+
+
+Write shell script to Generate sum of N numbers. Read N from user and until loop
+
+echo "Enter the number of terms(N):"
+read n
+sum=0
+i=1
+until [ $i -gt $n ]
+do
+sum=$((sum+i))
+i=$((i+1))
+done
+echo "Sum of first $n numbers is $sum"
+
+
+Write shell script to display 4x4 matrix and read data from user from keyboard. Use for Loop
+
+echo "Enter values for a 4x4 matrix: "
+for (( i=0 ; i<4; i++ ))
+do
+for(( j=0; j<4; j++ ))
+do
+read -p"Enter value for [$i,$j] : " matrix[$((i*4+j))]
+done
+done
+echo -e " The 4x4 matrix is: "
+for ((i=0; i<4; i++))
+do
+for ((j=0; j<4; j++))
+do
+echo -n -e "\t ${matrix[((i*4+j))]}"
+done
+echo
+done
+
+Create a script that repeatedly asks for the correct password until the user inputs "password123."Choice upto 3 times
+
+password="password123"
+attempts=0
+max_attempts=3
+while [ $attempts -lt $max_attempts ]; do
+echo "Enter password:"
+read input_password
+if [ "$input_password" == "$password" ]; then
+echo "Access granted! "
+exit 0
+else
+echo "Incorrect password, Try Again! "
+fi
+attempts = $((attempts+1))
+done
+echo "Too many failed attempts, Access Denied"
+
+
+Develop a script to iterate through a list of names (entered as command-line arguments) and print a personalized greeting for each name.
+
+for name in "$@"
+do
+echo "Hello, $name! Welcome!"
+done
+
+
+
+
+
+Experiment 5
+
+
+
+System Information Display
+
+
+#!/bin/bash
+
+echo "===== SYSTEM INFORMATION REPORT ====="
+echo
+
+echo "➤ Currently Logged In User : $(whoami)"
+echo "➤ Logname                   : $LOGNAME"
+echo "------------------------------------------"
+
+echo "➤ Current Shell             : $SHELL"
+echo "------------------------------------------"
+
+echo "➤ Home Directory            : $HOME"
+echo "------------------------------------------"
+
+echo "➤ Operating System Type     : $(uname -o)"
+echo "------------------------------------------"
+
+echo "➤ Current PATH Setting      : $PATH"
+echo "------------------------------------------"
+
+echo "➤ Current Working Directory : $(pwd)"
+echo "------------------------------------------"
+
+echo "➤ Currently Logged In Users : $(who | wc -l)"
+echo "------------------------------------------"
+
+echo "➤ Memory Information (Top 10 Lines):"
+head -10 /proc/meminfo
+echo "------------------------------------------"
+
+echo "➤ Hard Disk Information:"
+sudo lshw -class disk | grep -E 'size|description|vendor|product' | sed 's/^ *//'
+echo "------------------------------------------"
+
+echo "➤ Mounted File Systems:"
+df -h
+echo "=========================================="
+
+
+
+
+
+
+
+
+Script Title: Automatic System Update and Cleanup
+
+
+#!/bin/bash
+
+echo "Updating package list..."
+sudo apt-get update -y
+
+echo "Upgrading installed packages..."
+sudo apt-get upgrade -y
+
+echo "Performing distribution upgrade..."
+sudo apt-get dist-upgrade -y
+
+echo "Removing unused packages..."
+sudo apt-get autoremove -y
+
+echo "Cleaning up package cache..."
+sudo apt-get autoclean -y
+
+echo "System update and cleanup completed successfully."
+
+
+
+
+Experiment 6
+
+
+Add Hostname and IP Address to /etc/hosts
+
+#!/bin/bash
+
+# Check if exactly two arguments are provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <IP Address> <Hostname>"
+    exit 1
+fi
+
+# Assign arguments to variables
+IP_ADDRESS=$1
+HOSTNAME=$2
+
+# Append the IP and Hostname to the /etc/hosts file
+echo "$IP_ADDRESS $HOSTNAME" | sudo tee -a /etc/hosts > /dev/null
+
+# Confirmation message
+echo "Entry added: $IP_ADDRESS $HOSTNAME"
+
+
+
+
+Write shell script to demonstrate Command Line Argument 
+
+i.Positional Parameters 
+ii.Using Flag 
+iii.Using Loops with $@ – Loop Constructs 
+iv. Use of $#,$*,$$,$? And S!
+
+#!/bin/bash
+
+echo "===== Demonstrating Command-Line Arguments and Shell Variables ====="
+
+# i. Positional Parameters
+echo "Positional Parameters:"
+echo "Script Name       : $0"
+echo "First Argument    : $1"
+echo "Second Argument   : $2"
+echo "All Arguments     : $@"
+echo "------------------------------------------------"
+
+# ii. Using Flags (-n for name, -a for age)
+echo "Using Flags:"
+while getopts "n:a:" opt; do
+    case $opt in
+        n) name=$OPTARG ;;
+        a) age=$OPTARG ;;
+        *) echo "Invalid Option!" ;;
+    esac
+done
+echo "Name: $name"
+echo "Age : $age"
+echo "------------------------------------------------"
+
+# iii. Looping Through Arguments
+echo "Looping Through Arguments:"
+for arg in "$@"; do
+    echo "Argument: $arg"
+done
+echo "------------------------------------------------"
+
+# iv. Special Shell Variables
+echo "Special Shell Variables:"
+echo "Number of Arguments         : $#"
+echo "All Arguments (as one word) : $*"
+echo "Current Script PID          : $$"
+echo "Last Command Exit Status    : $?"
+echo "Last Background Process PID : $!"
+echo "------------------------------------------------"
+
+
+
+
+
+Experiment 7A
+
+Write awk script to find the number of characters, words and lines in a file?
+
+{
+	char_c	ount += length($0) + 1 # Count characters including newline 
+	word_count += NF # Count words (NF gives number of fields) line_count++ # Count lines 
+}
+
+ END {
+	print "Number of Characters:", char_count 
+	print "Number of Words:", word_count 
+	print "Number of Lines:", line_count
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Write an AWK script to calculate the total and average salary from a file (salaries.txt). Example Input (salaries.txt)
+
+cat>salaries.txt
+
+Alice,55000
+Bob,62000
+Charlie,58000
+Diana,61000
+Eve,59000
+
+# calculate_salary.awk - Calculate total and average salary from a CSV file
+BEGIN {
+    FS = ","  # Set field separator to comma (CSV format)
+    total_salary = 0
+    count = 0
+}
+
+# Process each line: Add salary from the second column
+{
+    total_salary += $2  # Assuming salary is in the second column
+    count++
+}
+
+END {
+    average_salary = (count > 0) ? total_salary / count : 0
+    print "Total Salary: ", total_salary
+    print "Average Salary: ", average_salary
+}
+
+
+
+
+
+Write an AWK script to search for all lines containing "error" (case-insensitive) in a log file (system.log) and display them. Example Input (system.log)
+
+
+first create system.log
+
+[INFO] System initialized successfully.
+[WARNING] Low disk space.
+[ERROR] Failed to start service.
+[Info] User logged in.
+[Error] Unable to connect to database.
+[error] Timeout while waiting for response.
+
+code
+
+# search_error.awk - Search for "error" (case-insensitive) in a log file
+BEGIN {
+    IGNORECASE = 1  # Enable case-insensitive matching
+    print "=== Error Logs Found ==="
+}
+
+# Search for "error" in any case and print the matching line
+/error/ {
+    print $0
+}
+
+END {
+    print "=== End of Error Logs ==="
+}
+
+
+
+how to run 
+
+awk -f script.sh system.log
+
+
+
+
+7B has SED commands 
+sir bola nahi ayega
+
