@@ -1,649 +1,610 @@
 LINUX SCRIPTS -
 
 
-Experiment 3
 
 
-area /volume
+logical based
+5,7,13,14,15,16,18,19,20,23,24,25,26,27,31,32,33,34,36,40
 
-echo "Enter the value of radius :" 
-read r 
-pi=3.14 
-area=$(echo "4*$pi*$r*$r" | bc)
-circumference=$(echo "2*$pi*$r" | bc)
-volume=$(echo "1.33*$pi*$r*$r*$r" | bc) 
-echo "Area = $area" 
-echo "Circumference =$circumference" 
-echo "Volume =$volume
 
+#!/bin/bash
 
-simple interest
+# ===== Q5: Swap Two Numbers Without Using Third Variable =====
+echo "Enter first number:"
+read a
+echo "Enter second number:"
+read b
+a=$((a + b))
+b=$((a - b))
+a=$((a - b))
+echo "After swapping: a=$a, b=$b"
 
-read -p "Enter the principal amount=" p 
-read -p "Enter the rate of interest=" r 
-read -p "Enter the time (in years)=" n 
-Simple_interest=$(echo "$p*$n*$r/100" | bc) 
-echo "simple interest is $simple_interest" 
-
-
-swapping two numbers
-
-read -p "enter first no:" num1 
-read -p "enter second no:" num2 
-echo "before swapping: num1 = $num1 and num2 = $num2" 
-num1=$((num1 +num2)) 
-num2=$((num1-num2)) 
-num1=$((num1-num2)) 
-echo "after swapping : num1 = $num1 and num2 = $num2"
-
-
-
-
-Maximum in 3 no.s
-
-read -p "Enter first no: " num1 
-read -p "Enter second no: " num2 
-read -p "Enter third no: " num3 
-max=$num1 
-if [ $num2 -gt $max ]; then 
-	max=$num2 
-elif [ $num3 -gt $max ]; then 
-	max=$num3 
-fi 
-echo "$max is The Greatest Number of all 3"
-
-
-Write script to demonstrate all command line argument  
-
-echo "total arguments: $#" 
-echo "all arguments values: $@" 
-echo "first-> $1" 
-echo "second-> $2" 
-echo "name of script is : $0" 
-echo "process id is $$ "
-
-
-Given sides of Triangle and decide whether the triangle is isosceles, equilateral, scalene, obtuse, acute, and right Write script for same. 
-
-read -p "Enter the first side: " side1 
-read -p "Enter the Second side: " side2 
-read -p "Enter the Third Side: " side3 
-if [ $side1 -eq $side2 ] && [ $side2 -eq $side3 ]; then
-echo "Equilateral triangle" 
-elif [ $side1 -eq $side2 ] || [ $side2 -eq $side3 ] || [ $side1 -eq $side3 ]; then 
-echo "Isosceles triangle" 
-else 
-echo "scalene triangel"
-fi
-
-
-
-Write to check whether entered string is palindrome or not 
-
-read -p "enter the string without space: " str 
-revstr=$(echo "$str" | rev) 
-if [ "$str"="$revstr" ]; then 
-echo "it is pallindrome" 
-else 
-echo "it is not a pallindrome" 
-fi
-
-
-
-
-
-
-
-exp3 complex codes:
-
-
-
-
-
-
-
-echo "Enter the file name:"
-read file
-
-echo "Enter the directory name:"
-read dir
-
-# Check if the file exists
-if [ -e "$file" ]; then
-    echo "File '$file' exists."
-else
-    echo "File '$file' does not exist."
-fi
-
-# Check if it's a regular file
-if [ -f "$file" ]; then
-    echo "'$file' is a regular file."
-else
-    echo "'$file' is not a regular file."
-fi
-
-# Check if the directory exists
-if [ -d "$dir" ]; then
-    echo "Directory '$dir' exists."
-else
-    echo "Directory '$dir' does not exist."
-fi
-
-# Check readability
-if [ -r "$file" ]; then
-    echo "'$file' is readable."
-else
-    echo "'$file' is not readable."
-fi
-
-# Check writability
-if [ -w "$file" ]; then
-    echo "'$file' is writable."
-else
-    echo "'$file' is not writable."
-fi
-
-# Check executability
-if [ -x "$file" ]; then
-    echo "'$file' is executable."
-else
-    echo "'$file' is not executable."
-fi
-
-
-
-
-
-
-
-
-
-menu driven calculator
-
-echo "arithmetic opeeration menu" 
-echo "1>addition" echo "2>subtraction" echo "3>multiplication" echo "4>division" 
-echo -n "please choose an option(1/2/3/4):" 
-read choice 
-echo -n "enter the first no :" 
-read num1 
-echo -n "enter the second no :" 
-read num2
-case $choice in 1)
-result=$((num1+num2)) 
-echo "the result of addition is $result" ;;
-2) result=$((num1-num2))
-echo "the result of subtraction is $result" ;; 
-3) result=$((num1*num2))
-echo "the result of multiplication is $result" ;; 
-4) result=$((num1/num2))
-echo "the result of division is $result" ;;
-*) echo “invalid choice”;;
-esac
-
-
-
-
-Write script to perform following String Operation 
-
-    • Find Length of String  
-    • Find and Replace String  
-    • To Concatenate String 
-    • Reversing the string 
-
-read -p "Enter a string: " 
-str length=${#str} 
-echo "Length of the string: $length" 
-read -p "Enter the word to find: " find 
-read -p "Enter the word to replace with: " 
-replace new_str=${str//$find/$replace} 
-echo "Updated string: $new_str" 
-read -p "Enter another string to concatenate: " str2 
-concatenated="$str$str2" 
-echo "Concatenated String: $concatenated" 
-reversed=$(echo "$str" | rev) 
-echo "Reversed String: $reversed"
-
-
-
-
-
-
-Write shells script to display menu for Celsius to Fahrenheit and Fahrenheit to Celsius, Read the temperature accordingly and convert. 
-
-echo "1. Celsius to Fahrenheit" 
-echo "2. Fahrenheit to Celsius" 
-read -p "Enter your choice: " choice 
-case $choice in 
-1) read -p "Enter the temperature in Celsius: " celsius
-fahrenheit=$(echo "scale=2; ($celsius * 9/5) + 32" | bc) 
-echo "The converted temperature is $fahrenheit°F";; 
-2) read -p "Enter the temperature in Fahrenheit: " fahrenheit
-celsius=$(echo "scale=2; ($fahrenheit - 32) * 5/9" | bc) 
-echo "The converted temperature is $celsius°C";; 
-*) echo "Invalid choice. Please select 1 or 2.";;
-esac
-
-
-       Experiment 4
-
-
-
-Write shell script to find reverse of 5 digit number using while loop
-
-
-echo "Enter a 5-digit number:"
-read num
-rev=0
-while [ $num -gt 0 ]; do
-remainder=$((num%10));
-rev=$((rev*10+remainder));
-num=$((num/10));
-done
-echo "Reveresed number : $rev"
-
-
-Write shell script to find factorial of number using while Loop
-
-
-
-echo "Enter a 5-digit number:"
-read num
-rev=0
-while [ $num -gt 0 ]; do
-remainder=$((num%10));
-rev=$((rev*10+remainder));
-num=$((num/10));
-done
-echo "Reveresed number : $rev"
-
-
-Write shell script to generate Fibo series upto the limit entered by user(for)
-
-#Fibo using for loop
-echo "Enter limit for fibonacci series: "
-read n
-a=0
-b=1
-count=0
-echo "Fibonacci series:"
-for ((i=0; i<n; i++)); do
-echo -n "$a "
-temp=$((a+b))
-a=$b
-b=$temp
-done
-echo
-
-
-
-Write shell script to generate prime number between limit specified by user using for loop
-
-cho "Enter lower limit:"
-read low
-echo "Enter upper limit:"
-read high
-echo "prime numbers between $low and $high are:"
-for ((num=low; num<=high; num++)); do
-is_prime=1
-for ((i=2; i<num; i++)); do
-if [ $((num%i)) -eq 0 ]; then
-is_prime=0
-break
-fi
-done
-if [ $is_prime -eq 1 ] && [ $sum -gt 1 ]; then
-echo -n "$num "
-fi
-done
-
-
-
-
-Write shell script to generate table of the number specified by the user using for in Loop
-
+# ===== Q7: Factorial of a Given Integer =====
 echo "Enter a number:"
 read num
-echo "Multiplication table of $num:"
-for ((i=1; i<=10; i++)); do
-echo "$num X $i = $((num*i))"
+fact=1
+for (( i=1; i<=num; i++ ))
+do
+  fact=$((fact * i))
+done
+echo "Factorial of $num is $fact"
+
+# ===== Q13: String Operations =====
+echo "Enter a string:"
+read str
+len=${#str}
+echo "Length of string: $len"
+echo "Enter substring to find and replace:"
+read find
+echo "Enter replacement string:"
+read replace
+echo "Modified string: ${str//$find/$replace}"
+echo "Enter second string to concatenate:"
+read str2
+echo "Concatenated string: $str$str2"
+echo "Reversed string: $(echo $str | rev)"
+
+# ===== Q14 & Q27: Palindrome Check =====
+echo "Enter a string:"
+read string
+rev=$(echo "$string" | rev)
+if [ "$string" = "$rev" ]; then
+  echo "$string is a palindrome."
+else
+  echo "$string is not a palindrome."
+fi
+
+# ===== Q15: Temperature Conversion Menu =====
+echo "1. Celsius to Fahrenheit"
+echo "2. Fahrenheit to Celsius"
+read -p "Enter choice: " choice
+case $choice in
+  1)
+    read -p "Enter temp in Celsius: " c
+    f=$(( (c * 9 / 5) + 32 ))
+    echo "Temperature in Fahrenheit: $f";;
+  2)
+    read -p "Enter temp in Fahrenheit: " f
+    c=$(( (f - 32) * 5 / 9 ))
+    echo "Temperature in Celsius: $c";;
+  *) echo "Invalid choice";;
+esac
+
+# ===== Q16: Square and Cube of Numbers from 1 to 10 =====
+echo "Number  Square  Cube"
+for ((i=1; i<=10; i++))
+do
+  echo "$i        $((i*i))      $((i*i*i))"
 done
 
-Write shell script to generate even number between limit specified by user
+# ===== Q18: Menu Driven Calculator =====
+echo "1. Addition"
+echo "2. Subtraction"
+echo "3. Multiplication"
+echo "4. Division"
+echo "5. Remainder"
+read -p "Enter your choice: " ch
+read -p "Enter two numbers: " a b
+case $ch in
+  1) echo "Sum: $((a + b))";;
+  2) echo "Difference: $((a - b))";;
+  3) echo "Product: $((a * b))";;
+  4) echo "Quotient: $((a / b))";;
+  5) echo "Remainder: $((a % b))";;
+  *) echo "Invalid choice";;
+esac
 
-
-echo "Enter lower limit:"
-read low
-echo "Enter upper limit:"
-read high
-echo "even numbers between $low and $high:"
-for ((i=low; i<=high; i++)); do
-if [ $((i%2)) -eq 0 ]; then
-echo -n "$i "
+# ===== Q19: Maximum of Three Numbers =====
+read -p "Enter three numbers: " a b c
+if [ $a -ge $b ] && [ $a -ge $c ]; then
+  echo "$a is the greatest"
+elif [ $b -ge $a ] && [ $b -ge $c ]; then
+  echo "$b is the greatest"
+else
+  echo "$c is the greatest"
 fi
+
+# ===== Q20: Fibonacci Series till User-Specified Limit =====
+read -p "Enter limit: " n
+a=0
+b=1
+echo "Fibonacci series:"
+for (( i=0; i<n; i++ ))
+do
+  echo -n "$a "
+  fn=$((a + b))
+  a=$b
+  b=$fn
 done
 echo
 
+# ===== Q23: Factorial of All Numbers Using Loop =====
+read -p "Enter a number: " n
+for (( i=1; i<=n; i++ ))
+do
+  fact=1
+  for (( j=1; j<=i; j++ ))
+  do
+    fact=$((fact * j))
+  done
+  echo "Factorial of $i is $fact"
+done
 
-Write shell script to Generate sum of N numbers. Read N from user and until loop
+# ===== Q24: Sum of Squares of N Numbers =====
+read -p "Enter N: " n
+sum=0
+for (( i=1; i<=n; i++ ))
+do
+  sq=$((i*i))
+  sum=$((sum + sq))
+done
+echo "Sum of squares of $n numbers is $sum"
 
-echo "Enter the number of terms(N):"
-read n
+# ===== Q25 & Q26: Character Classification using case and if-else =====
+read -p "Enter a character: " ch
+case $ch in
+  [aeiouAEIOU]) echo "Vowel";;
+  [a-zA-Z]) echo "Consonant";;
+  [0-9]) echo "Digit";;
+  *) echo "Special Character";;
+esac
+
+if [[ $ch =~ [aeiouAEIOU] ]]; then
+  echo "Vowel"
+elif [[ $ch =~ [a-zA-Z] ]]; then
+  echo "Consonant"
+elif [[ $ch =~ [0-9] ]]; then
+  echo "Digit"
+else
+  echo "Special Character"
+fi
+
+# ===== Q31: Reverse a 5-digit Number Using While Loop =====
+read -p "Enter a 5-digit number: " num
+rev=0
+temp=$num
+while [ $temp -gt 0 ]
+do
+  digit=$((temp % 10))
+  rev=$((rev * 10 + digit))
+  temp=$((temp / 10))
+done
+echo "Reverse of $num is $rev"
+
+# ===== Q32: Prime Numbers Between Given Range =====
+read -p "Enter range: " n
+for (( i=2; i<=n; i++ ))
+do
+  flag=1
+  for (( j=2; j*j<=i; j++ ))
+  do
+    if (( i % j == 0 )); then
+      flag=0
+      break
+    fi
+  done
+  if (( flag == 1 )); then
+    echo "$i"
+  fi
+done
+
+# ===== Q33: Sum of N Numbers Using Until Loop =====
+read -p "Enter N: " n
 sum=0
 i=1
 until [ $i -gt $n ]
 do
-sum=$((sum+i))
-i=$((i+1))
+  sum=$((sum + i))
+  i=$((i + 1))
 done
 echo "Sum of first $n numbers is $sum"
 
-
-Write shell script to display 4x4 matrix and read data from user from keyboard. Use for Loop
-
-echo "Enter values for a 4x4 matrix: "
-for (( i=0 ; i<4; i++ ))
+# ===== Q34: 4x4 Matrix Input from User =====
+declare -a matrix
+echo "Enter elements for 4x4 matrix:"
+for (( i=0; i<4; i++ ))
 do
-for(( j=0; j<4; j++ ))
-do
-read -p"Enter value for [$i,$j] : " matrix[$((i*4+j))]
+  for (( j=0; j<4; j++ ))
+  do
+    read -p "Element [$i,$j]: " matrix[$((i*4+j))]
+  done
 done
-done
-echo -e " The 4x4 matrix is: "
-for ((i=0; i<4; i++))
+echo "Matrix is:"
+for (( i=0; i<4; i++ ))
 do
-for ((j=0; j<4; j++))
-do
-echo -n -e "\t ${matrix[((i*4+j))]}"
-done
-echo
+  for (( j=0; j<4; j++ ))
+  do
+    echo -n "${matrix[$((i*4+j))]} "
+  done
+  echo
+
 done
 
-Create a script that repeatedly asks for the correct password until the user inputs "password123."Choice upto 3 times
-
-password="password123"
-attempts=0
-max_attempts=3
-while [ $attempts -lt $max_attempts ]; do
-echo "Enter password:"
-read input_password
-if [ "$input_password" == "$password" ]; then
-echo "Access granted! "
-exit 0
+# ===== Q36: Various String Operations =====
+echo "Enter first string:"
+read str1
+echo "Enter second string:"
+read str2
+echo "Length of string 1: ${#str1}"
+echo "Concatenated: $str1$str2"
+echo "Reversed: $(echo $str1 | rev)"
+echo "Enter substring to find and replace in string 1:"
+read find
+echo "Enter replacement:"
+read replace
+echo "Modified string: ${str1//$find/$replace}"
+if [ "$str1" = "$str2" ]; then
+  echo "Strings are equal"
 else
-echo "Incorrect password, Try Again! "
+  echo "Strings are different"
 fi
-attempts = $((attempts+1))
-done
-echo "Too many failed attempts, Access Denied"
 
-
-Develop a script to iterate through a list of names (entered as command-line arguments) and print a personalized greeting for each name.
-
-for name in "$@"
+# ===== Q40: Sum of Cubes of a 5-digit Number =====
+read -p "Enter a 5-digit number: " num
+sum=0
+temp=$num
+while [ $temp -gt 0 ]
 do
-echo "Hello, $name! Welcome!"
+  digit=$((temp % 10))
+  sum=$((sum + digit * digit * digit))
+  temp=$((temp / 10))
 done
+echo "Sum of cubes of digits of $num is $sum"
 
 
 
 
 
-Experiment 5
 
 
-
-System Information Display
-
+rest :
 
 #!/bin/bash
 
-echo "===== SYSTEM INFORMATION REPORT ====="
+# ===== Q5: Swap Two Numbers Without Using Third Variable =====
+echo "Enter first number:"
+read a
+echo "Enter second number:"
+read b
+a=$((a + b))
+b=$((a - b))
+a=$((a - b))
+echo "After swapping: a=$a, b=$b"
+
+# ===== Q7: Factorial of a Given Integer =====
+echo "Enter a number:"
+read num
+fact=1
+for (( i=1; i<=num; i++ ))
+do
+  fact=$((fact * i))
+done
+echo "Factorial of $num is $fact"
+
+# ===== Q13: String Operations =====
+echo "Enter a string:"
+read str
+len=${#str}
+echo "Length of string: $len"
+echo "Enter substring to find and replace:"
+read find
+echo "Enter replacement string:"
+read replace
+echo "Modified string: ${str//$find/$replace}"
+echo "Enter second string to concatenate:"
+read str2
+echo "Concatenated string: $str$str2"
+echo "Reversed string: $(echo $str | rev)"
+
+# ===== Q14 & Q27: Palindrome Check =====
+echo "Enter a string:"
+read string
+rev=$(echo "$string" | rev)
+if [ "$string" = "$rev" ]; then
+  echo "$string is a palindrome."
+else
+  echo "$string is not a palindrome."
+fi
+
+# ===== Q15: Temperature Conversion Menu =====
+echo "1. Celsius to Fahrenheit"
+echo "2. Fahrenheit to Celsius"
+read -p "Enter choice: " choice
+case $choice in
+  1)
+    read -p "Enter temp in Celsius: " c
+    f=$(( (c * 9 / 5) + 32 ))
+    echo "Temperature in Fahrenheit: $f";;
+  2)
+    read -p "Enter temp in Fahrenheit: " f
+    c=$(( (f - 32) * 5 / 9 ))
+    echo "Temperature in Celsius: $c";;
+  *) echo "Invalid choice";;
+esac
+
+# ===== Q16: Square and Cube of Numbers from 1 to 10 =====
+echo "Number  Square  Cube"
+for ((i=1; i<=10; i++))
+do
+  echo "$i        $((i*i))      $((i*i*i))"
+done
+
+# ===== Q18: Menu Driven Calculator =====
+echo "1. Addition"
+echo "2. Subtraction"
+echo "3. Multiplication"
+echo "4. Division"
+echo "5. Remainder"
+read -p "Enter your choice: " ch
+read -p "Enter two numbers: " a b
+case $ch in
+  1) echo "Sum: $((a + b))";;
+  2) echo "Difference: $((a - b))";;
+  3) echo "Product: $((a * b))";;
+  4) echo "Quotient: $((a / b))";;
+  5) echo "Remainder: $((a % b))";;
+  *) echo "Invalid choice";;
+esac
+
+# ===== Q19: Maximum of Three Numbers =====
+read -p "Enter three numbers: " a b c
+if [ $a -ge $b ] && [ $a -ge $c ]; then
+  echo "$a is the greatest"
+elif [ $b -ge $a ] && [ $b -ge $c ]; then
+  echo "$b is the greatest"
+else
+  echo "$c is the greatest"
+fi
+
+# ===== Q20: Fibonacci Series till User-Specified Limit =====
+read -p "Enter limit: " n
+a=0
+b=1
+echo "Fibonacci series:"
+for (( i=0; i<n; i++ ))
+do
+  echo -n "$a "
+  fn=$((a + b))
+  a=$b
+  b=$fn
+done
 echo
 
-echo "➤ Currently Logged In User : $(whoami)"
-echo "➤ Logname                   : $LOGNAME"
-echo "------------------------------------------"
+# ===== Q23: Factorial of All Numbers Using Loop =====
+read -p "Enter a number: " n
+for (( i=1; i<=n; i++ ))
+do
+  fact=1
+  for (( j=1; j<=i; j++ ))
+  do
+    fact=$((fact * j))
+  done
+  echo "Factorial of $i is $fact"
+done
 
-echo "➤ Current Shell             : $SHELL"
-echo "------------------------------------------"
+# ===== Q24: Sum of Squares of N Numbers =====
+read -p "Enter N: " n
+sum=0
+for (( i=1; i<=n; i++ ))
+do
+  sq=$((i*i))
+  sum=$((sum + sq))
+done
+echo "Sum of squares of $n numbers is $sum"
 
-echo "➤ Home Directory            : $HOME"
-echo "------------------------------------------"
+# ===== Q25 & Q26: Character Classification using case and if-else =====
+read -p "Enter a character: " ch
+case $ch in
+  [aeiouAEIOU]) echo "Vowel";;
+  [a-zA-Z]) echo "Consonant";;
+  [0-9]) echo "Digit";;
+  *) echo "Special Character";;
+esac
 
-echo "➤ Operating System Type     : $(uname -o)"
-echo "------------------------------------------"
-
-echo "➤ Current PATH Setting      : $PATH"
-echo "------------------------------------------"
-
-echo "➤ Current Working Directory : $(pwd)"
-echo "------------------------------------------"
-
-echo "➤ Currently Logged In Users : $(who | wc -l)"
-echo "------------------------------------------"
-
-echo "➤ Memory Information (Top 10 Lines):"
-head -10 /proc/meminfo
-echo "------------------------------------------"
-
-echo "➤ Hard Disk Information:"
-sudo lshw -class disk | grep -E 'size|description|vendor|product' | sed 's/^ *//'
-echo "------------------------------------------"
-
-echo "➤ Mounted File Systems:"
-df -h
-echo "=========================================="
-
-
-
-
-
-
-
-
-Script Title: Automatic System Update and Cleanup
-
-
-#!/bin/bash
-
-echo "Updating package list..."
-sudo apt-get update -y
-
-echo "Upgrading installed packages..."
-sudo apt-get upgrade -y
-
-echo "Performing distribution upgrade..."
-sudo apt-get dist-upgrade -y
-
-echo "Removing unused packages..."
-sudo apt-get autoremove -y
-
-echo "Cleaning up package cache..."
-sudo apt-get autoclean -y
-
-echo "System update and cleanup completed successfully."
-
-
-
-
-Experiment 6
-
-
-Add Hostname and IP Address to /etc/hosts
-
-#!/bin/bash
-
-# Check if exactly two arguments are provided
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <IP Address> <Hostname>"
-    exit 1
+if [[ $ch =~ [aeiouAEIOU] ]]; then
+  echo "Vowel"
+elif [[ $ch =~ [a-zA-Z] ]]; then
+  echo "Consonant"
+elif [[ $ch =~ [0-9] ]]; then
+  echo "Digit"
+else
+  echo "Special Character"
 fi
 
-# Assign arguments to variables
-IP_ADDRESS=$1
-HOSTNAME=$2
-
-# Append the IP and Hostname to the /etc/hosts file
-echo "$IP_ADDRESS $HOSTNAME" | sudo tee -a /etc/hosts > /dev/null
-
-# Confirmation message
-echo "Entry added: $IP_ADDRESS $HOSTNAME"
-
-
-
-
-Write shell script to demonstrate Command Line Argument 
-
-i.Positional Parameters 
-ii.Using Flag 
-iii.Using Loops with $@ – Loop Constructs 
-iv. Use of $#,$*,$$,$? And S!
-
-#!/bin/bash
-
-echo "===== Demonstrating Command-Line Arguments and Shell Variables ====="
-
-# i. Positional Parameters
-echo "Positional Parameters:"
-echo "Script Name       : $0"
-echo "First Argument    : $1"
-echo "Second Argument   : $2"
-echo "All Arguments     : $@"
-echo "------------------------------------------------"
-
-# ii. Using Flags (-n for name, -a for age)
-echo "Using Flags:"
-while getopts "n:a:" opt; do
-    case $opt in
-        n) name=$OPTARG ;;
-        a) age=$OPTARG ;;
-        *) echo "Invalid Option!" ;;
-    esac
+# ===== Q31: Reverse a 5-digit Number Using While Loop =====
+read -p "Enter a 5-digit number: " num
+rev=0
+temp=$num
+while [ $temp -gt 0 ]
+do
+  digit=$((temp % 10))
+  rev=$((rev * 10 + digit))
+  temp=$((temp / 10))
 done
-echo "Name: $name"
-echo "Age : $age"
-echo "------------------------------------------------"
+echo "Reverse of $num is $rev"
 
-# iii. Looping Through Arguments
-echo "Looping Through Arguments:"
-for arg in "$@"; do
-    echo "Argument: $arg"
+# ===== Q32: Prime Numbers Between Given Range =====
+read -p "Enter range: " n
+for (( i=2; i<=n; i++ ))
+do
+  flag=1
+  for (( j=2; j*j<=i; j++ ))
+  do
+    if (( i % j == 0 )); then
+      flag=0
+      break
+    fi
+  done
+  if (( flag == 1 )); then
+    echo "$i"
+  fi
 done
-echo "------------------------------------------------"
 
-# iv. Special Shell Variables
-echo "Special Shell Variables:"
-echo "Number of Arguments         : $#"
-echo "All Arguments (as one word) : $*"
-echo "Current Script PID          : $$"
-echo "Last Command Exit Status    : $?"
-echo "Last Background Process PID : $!"
-echo "------------------------------------------------"
+# ===== Q33: Sum of N Numbers Using Until Loop =====
+read -p "Enter N: " n
+sum=0
+i=1
+until [ $i -gt $n ]
+do
+  sum=$((sum + i))
+  i=$((i + 1))
+done
+echo "Sum of first $n numbers is $sum"
 
+# ===== Q34: 4x4 Matrix Input from User =====
+declare -a matrix
+echo "Enter elements for 4x4 matrix:"
+for (( i=0; i<4; i++ ))
+do
+  for (( j=0; j<4; j++ ))
+  do
+    read -p "Element [$i,$j]: " matrix[$((i*4+j))]
+  done
+done
+echo "Matrix is:"
+for (( i=0; i<4; i++ ))
+do
+  for (( j=0; j<4; j++ ))
+  do
+    echo -n "${matrix[$((i*4+j))]} "
+  done
+  echo
+done
 
+# ===== Q36: Various String Operations =====
+echo "Enter first string:"
+read str1
+echo "Enter second string:"
+read str2
+echo "Length of string 1: ${#str1}"
+echo "Concatenated: $str1$str2"
+echo "Reversed: $(echo $str1 | rev)"
+echo "Enter substring to find and replace in string 1:"
+read find
+echo "Enter replacement:"
+read replace
+echo "Modified string: ${str1//$find/$replace}"
+if [ "$str1" = "$str2" ]; then
+  echo "Strings are equal"
+else
+  echo "Strings are different"
+fi
 
+# ===== Q40: Sum of Cubes of a 5-digit Number =====
+read -p "Enter a 5-digit number: " num
+sum=0
+temp=$num
+while [ $temp -gt 0 ]
+do
+  digit=$((temp % 10))
+  sum=$((sum + digit * digit * digit))
+  temp=$((temp / 10))
+done
+echo "Sum of cubes of digits of $num is $sum"
 
+# ===== Q6: Delete All Lines Containing a Word =====
+echo "Enter the filename:"
+read file
+echo "Enter word to delete lines containing it:"
+read word
+grep -v "$word" "$file" > temp && mv temp "$file"
+echo "Lines containing '$word' deleted from $file"
 
-Experiment 7A
+# ===== Q17: Display Info Using Environment Variables =====
+echo "SHELL: $SHELL"
+echo "USER: $USER"
+echo "PWD: $PWD"
+echo "PATH: $PATH"
+echo "LANG: $LANG"
+echo "HOME: $HOME"
+echo "BASH_VERSION: $BASH_VERSION"
+echo "BASH_VERSINFO: ${BASH_VERSINFO[*]}"
+echo "HOSTNAME: $HOSTNAME"
+echo "UID: $UID"
 
-Write awk script to find the number of characters, words and lines in a file?
+# ===== Q21: String Comparison =====
+echo "Enter first string:"
+read s1
+echo "Enter second string:"
+read s2
 
-{
-	char_c	ount += length($0) + 1 # Count characters including newline 
-	word_count += NF # Count words (NF gives number of fields) line_count++ # Count lines 
-}
+if [ -n "$s1" ]; then echo "First string is non-zero in length"; fi
+if [ -z "$s1" ]; then echo "First string is zero-length"; fi
+if [ "$s1" = "$s2" ]; then echo "Strings are equal"; fi
+if [ "$s1" != "$s2" ]; then echo "Strings are not equal"; fi
+if [ -n "$s1" ]; then echo "First string is not empty"; else echo "It is empty"; fi
 
- END {
-	print "Number of Characters:", char_count 
-	print "Number of Words:", word_count 
-	print "Number of Lines:", line_count
-}
+# ===== Q22: File Type and Special Bits Check =====
+echo "Enter file name:"
+read f
+[ -b "$f" ] && echo "Block special file"
+[ -c "$f" ] && echo "Character special file"
+[ -d "$f" ] && echo "Directory"
+[ -f "$f" ] && echo "Ordinary file"
+[ -g "$f" ] && echo "SGID bit is set"
+[ -k "$f" ] && echo "Sticky bit is set"
+[ -p "$f" ] && echo "Named pipe"
+[ -t 0 ] && echo "File descriptor 0 (stdin) is associated with a terminal"
 
+# ===== Q28: Command Line Arguments Demo =====
+echo "Script name: $0"
+echo "First arg: $1"
+echo "Second arg: $2"
+echo "All args: $@"
+echo "Number of args: $#"
+echo "All args (quoted): $*"
+echo "Current process ID: $$"
+echo "Last exit status: $?"
+echo "Last background process ID: $!"
 
+# ===== Q29: Demonstrate Sort Command Options =====
+echo "Enter filename to sort:"
+read fname
+sort -b "$fname" > sort_b.txt
+sort -r "$fname" > sort_r.txt
+sort -n "$fname" > sort_n.txt
+sort -M "$fname" > sort_M.txt
+sort -u "$fname" > sort_u.txt
+echo "Sorting done with options -b, -r, -n, -M, -u"
 
+# ===== Q30: Use wc to Count Characters, Words, Lines =====
+echo "Enter filename:"
+read file
+wc "$file"
 
+# ===== Q35: wc Command Breakdown =====
+wc -l "$file"
+wc -w "$file"
+wc -c "$file"
+wc -m "$file"
+wc -L "$file"
 
+# ===== Q37: File Operations =====
+echo "Enter source file:"
+read src
+echo "Enter destination file:"
+read dest
+cp "$src" "$dest"
+echo "File copied."
+rm -i "$src"
+mv "$dest" "$src"
+ls -l "$src"
 
+# ===== Q38: System Info Display =====
+ip a | grep inet
+echo "Logged-in users: $(who | wc -l)"
+uname -a
+free -h
+df -h
+ifconfig
+uname -m
 
-
-
-
-
-
-
-
-
-Write an AWK script to calculate the total and average salary from a file (salaries.txt). Example Input (salaries.txt)
-
-cat>salaries.txt
-
-Alice,55000
-Bob,62000
-Charlie,58000
-Diana,61000
-Eve,59000
-
-# calculate_salary.awk - Calculate total and average salary from a CSV file
-BEGIN {
-    FS = ","  # Set field separator to comma (CSV format)
-    total_salary = 0
-    count = 0
-}
-
-# Process each line: Add salary from the second column
-{
-    total_salary += $2  # Assuming salary is in the second column
-    count++
-}
-
-END {
-    average_salary = (count > 0) ? total_salary / count : 0
-    print "Total Salary: ", total_salary
-    print "Average Salary: ", average_salary
-}
-
-
-
-
-
-Write an AWK script to search for all lines containing "error" (case-insensitive) in a log file (system.log) and display them. Example Input (system.log)
-
-
-first create system.log
-
-[INFO] System initialized successfully.
-[WARNING] Low disk space.
-[ERROR] Failed to start service.
-[Info] User logged in.
-[Error] Unable to connect to database.
-[error] Timeout while waiting for response.
-
-code
-
-# search_error.awk - Search for "error" (case-insensitive) in a log file
-BEGIN {
-    IGNORECASE = 1  # Enable case-insensitive matching
-    print "=== Error Logs Found ==="
-}
-
-# Search for "error" in any case and print the matching line
-/error/ {
-    print $0
-}
-
-END {
-    print "=== End of Error Logs ==="
-}
-
-
-
-how to run 
-
-awk -f script.sh system.log
-
-
-
-
-7B has SED commands 
-sir bola nahi ayega
-
+# ===== Q39: File Property Checks =====
+[ -p "$file" ] && echo "Named pipe"
+[ -t 0 ] && echo "FD open on terminal"
+[ -u "$file" ] && echo "SUID set"
+[ -r "$file" ] && echo "Readable"
+[ -w "$file" ] && echo "Writable"
+[ -x "$file" ] && echo "Executable"
+[ -s "$file" ] && echo "Size > 0"
+[ -e "$file" ] && echo "File exists"
