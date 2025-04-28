@@ -1,147 +1,87 @@
-% Program to determine the class of an IP address
+# Study of K-Means Algorithm
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
 
-clc;
+# Data points
+x = [4, 5, 10, 4, 3, 11, 14, 6, 10, 12]
+y = [21, 19, 24, 17, 16, 25, 24, 22, 21, 21]
 
-clear;
+# Plotting the original points
+plt.scatter(x, y)
+plt.show()
 
-% Taking user input
+# Preparing data for KMeans
+data = list(zip(x, y))
 
-first_octet = input('Enter the first octet (0-255): ');
+# Applying KMeans with 3 clusters
+kmeans = KMeans(n_clusters=3)
+kmeans.fit(data)
 
-% Validate the input
+# Plotting clustered points
+plt.scatter(x, y, c=kmeans.labels_)
+plt.show()
 
-if first_octet < 0 || first_octet > 255
 
- disp('Invalid IP Address. First octet must be between 0 and 255.');
 
-else
 
- % Determine the class
+# Importing libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import svm
+from sklearn import metrics
+from sklearn.inspection import DecisionBoundaryDisplay
 
- if first_octet >= 0 && first_octet <= 127
+# Training data
+X_train = np.array([
+    [-1, -1],
+    [-2, -1],
+    [-3, -2],
+    [1, 1],
+    [2, 1],
+    [3, 2]
+])
+y_train = [0, 0, 0, 1, 1, 1]  # Labels
 
- disp('Class A IP Address');
+# Initializing SVM Classifier
+clf = svm.SVC(kernel='linear')
 
- elseif first_octet >= 128 && first_octet <= 191
+# Fitting the classifier
+clf.fit(X_train, y_train)
 
- disp('Class B IP Address');
+# Predicting on training data
+predictions = clf.predict(X_train)
+print(predictions)
 
- elseif first_octet >= 192 && first_octet <= 223
+# Predicting a new value
+new_prediction = clf.predict([[-4, -3]])
+print(new_prediction)
 
- disp('Class C IP Address');
+# Getting support vectors
+support_vectors = clf.support_vectors_
+print(support_vectors)
 
- elseif first_octet >= 224 && first_octet <= 239
+# Classification report and confusion matrix
+print(metrics.classification_report(y_train, predictions))
+print(metrics.confusion_matrix(y_train, predictions))
 
- disp('Class D IP Address (Multicast)');
+# Plotting decision boundary
+plt.scatter(X_train[:, 0], X_train[:, 1])
+ax = plt.gca()
+DecisionBoundaryDisplay.from_estimator(
+    clf,
+    X_train,
+    plot_method="contour",
+    colors="k",
+    levels=[-1, 0, 1],
+    alpha=0.5,
+    linestyles=["--", "-", "--"]
+)
+ax.set_title("SVM Decision Boundary")
+plt.show()
 
- elseif first_octet >= 240 && first_octet <= 255
 
- disp('Class E IP Address (Experimental)');
 
- end
 
-end
-
-
-
-
-
-
-
-
-
-#include <iostream>
-
-#include <cstdlib> // For rand() and srand()
-
-#include <ctime> // For time()
-
-using namespace std;
-
-int main() {
-
- int windowSize, totalFrames;
-
- int frames[50];
-
- cout << "Enter the window size: ";
-
- cin >> windowSize;
-
- cout << "Enter the number of frames to be sent: ";
-
- cin >> totalFrames;
-
- cout << "Enter the " << totalFrames << " frames: ";
-
- for (int i = 1; i <= totalFrames; i++) {
-
- cin >> frames[i];
-
- }
-
- srand(time(0)); // Randomize corruption
-
- int i = 1;
-
- while (i <= totalFrames) {
-
- bool errorDetected = false;
-
- cout << "\nSending frames: ";
-
- for (int j = 0; j < windowSize && (i + j) <= totalFrames; j++) {
-
- cout << frames[i + j] << " ";
-
- }
-
- cout << endl;
-
- for (int j = 0; j < windowSize && (i + j) <= totalFrames; j++) {
-
- bool isCorrupted = rand() % 10 < 3; // 30% chance of corruption
-
- if (isCorrupted) {
-
- cout << "Frame " << frames[i + j] << " is corrupted!" << endl;
-
- errorDetected = true;
-
- break; // Go-Back-N: If error, stop and resend window
-
- }
-
- else {
-
- cout << "Acknowledgment received for frame " << frames[i + j] << endl;
-
- }
-
- }
-
- if (errorDetected) {
-cout << "Error detected! Resending window starting from frame " << frames[i] << 
-
-endl;
-
- // No increment, resend the window
-
- }
-
- else {
-
- i += windowSize; // Move to next window
-
- }
-
- }
-
- cout << "\nAll frames sent successfully!" << endl;
-
- return 0;
-
-}
 
 
 
