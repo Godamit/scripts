@@ -85,3 +85,365 @@ plt.show()
 
 
 
+
+1. Negative Image Generation
+
+
+clc;
+clear;
+f = uint8(imread('Img_grey.tif'));
+[row, col] = size(f);
+for x = 1:row
+    for y = 1:col
+        g(x, y) = 255 - f(x, y);
+    end
+end
+figure(1), imshow(f), title('Original Image');
+figure(2), imshow(g), title('Negative Image');
+
+
+
+
+2. Thresholding
+
+clc;
+clear;
+T = 135;
+f = uint8(imread('Img_grey.tif'));
+[row, col] = size(f);
+for x = 1:row
+    for y = 1:col
+        if f(x, y) >= 0 && f(x, y) <= T
+            g(x, y) = 0;
+        else
+            g(x, y) = 255;
+        end
+    end
+end
+figure(1), imshow(f), title('Original Image');
+figure(2), imshow(g), title('Thresholded Image');
+
+
+3. Gray Level Slicing
+
+clc;
+clear;
+f = uint8(imread('Img_grey.tif'));
+r1 = 120;
+r2 = 175;
+[row, col] = size(f);
+for x = 1:row
+    for y = 1:col
+        if r1 <= f(x, y) && f(x, y) <= r2
+            g1(x, y) = 255;
+            g2(x, y) = 255;
+        else
+            g1(x, y) = 0;
+            g2(x, y) = f(x, y);
+        end
+    end
+end
+figure(1), imshow(f), title('Original Image');
+figure(2), imshow(g1), title('Gray Level Slicing without Background');
+figure(3), imshow(g2), title('Gray Level Slicing with Background');
+
+
+
+4. Contrast Stretching
+
+clc;
+clear;
+f = uint8(imread('pout.tif'));
+alpha = 0.4;
+beta = 3;
+gama = 0.6;
+r1 = 75;
+r2 = 220;
+s1 = alpha * r1;
+s2 = beta * (r2 - r1) + s1;
+[row, col] = size(f);
+for x = 1:row
+    for y = 1:col
+        if 0 <= f(x, y) && f(x, y) <= r1
+            g(x, y) = alpha * f(x, y);
+        elseif r1 <= f(x, y) && f(x, y) <= r2
+            g(x, y) = beta * (f(x, y) - r1) + s1;
+        else
+            g(x, y) = gama * (f(x, y) - r2) + s2;
+        end
+    end
+end
+figure(1), imshow(f), title('Original Image');
+figure(2), imshow(g), title('Contrast Stretched Image');
+
+
+
+5. Low Pass Filtering (Averaging Filter)
+
+clc;
+clear;
+f1 = uint8(imread('img_grey.tif'));
+f = uint8(imnoise(f1, 'gaussian'));
+w = ones(3, 3) / 9;
+[row, col] = size(f);
+g = f;
+for x = 2:row-1
+    for y = 2:col-1
+        g(x, y) = sum(sum(f(x-1:x+1, y-1:y+1) .* w));
+    end
+end
+figure(1), imshow(f1), title('Original Image');
+figure(2), imshow(f), title('Noisy Image');
+figure(3), imshow(uint8(g)), title('Averaged (LPF) Image');
+
+
+
+6. Low Pass Filtering (Median Filter)
+
+clc;
+clear;
+f1 = uint8(imread('img_grey.tif'));
+f = uint8(imnoise(f1, 'salt & pepper', 0.5));
+[row, col] = size(f);
+g = f;
+for x = 2:row-1
+    for y = 2:col-1
+        Temp = reshape(f(x-1:x+1, y-1:y+1), 1, []);
+        Temp1 = sort(Temp);
+        g(x, y) = Temp1(5);
+    end
+end
+figure(1), imshow(f1), title('Original Image');
+figure(2), imshow(f), title('Noisy Image');
+figure(3), imshow(uint8(g)), title('Median Filtered Image');
+
+
+
+
+7. High Pass Filtering (Standard HPF)
+
+
+clc;
+clear;
+f = double(imread('img_grey.tif'));
+w = [-1 -1 -1; -1 8 -1; -1 -1 -1];
+[row, col] = size(f);
+g = f;
+for x = 2:row-1
+    for y = 2:col-1
+        g(x, y) = sum(sum(f(x-1:x+1, y-1:y+1) .* w));
+    end
+end
+figure(1), imshow(uint8(f)), title('Original Image');
+figure(2), imshow(uint8(g)), title('High Pass Filtered Image');
+
+
+8. High Pass Filtering (High Boost Filtering)
+
+
+clc;
+clear;
+f = double(imread('img_grey.tif'));
+w = [-1 -1 -1; -1 8.5 -1; -1 -1 -1];
+[row, col] = size(f);
+g = f;
+for x = 2:row-1
+    for y = 2:col-1
+        g(x, y) = sum(sum(f(x-1:x+1, y-1:y+1) .* w));
+    end
+end
+figure(1), imshow(uint8(f)), title('Original Image');
+figure(2), imshow(uint8(g)), title('High Boost Filtered Image');
+
+
+9. Histogram Calculation
+
+clc;
+clear;
+f = imread('pout.tif');
+h = zeros(1, 256);
+[row, col] = size(f);
+for x = 1:row
+    for y = 1:col
+        TEMP = f(x, y) + 1;
+        h(TEMP) = h(TEMP) + 1;
+    end
+end
+figure(1), imshow(f), title('Original Image');
+figure(2), bar(h), title('Histogram');
+
+
+
+Histogram Stretching
+clc;
+clear;
+f = imread('pout.tif');
+[row, col] = size(f);
+fmax = max(max(f));
+fmin = min(min(f));
+gmax = 255;
+gmin = 0;
+h1 = zeros(1, 256);
+for x = 1:row
+    for y = 1:col
+        g(x, y) = (((gmax - gmin) / (fmax - fmin)) * (f(x, y) - fmin)) + gmin;
+    end
+end
+figure(1), imshow(f), title('Original Image');
+figure(2), imshow(g), title('Stretched Image');
+for x = 1:row
+    for y = 1:col
+        TEMP = g(x, y) + 1;
+        h1(TEMP) = h1(TEMP) + 1;
+    end
+end
+figure(3), bar(h1), title('Histogram after Stretching');
+
+
+11. Frequency Spectrum via FFT
+
+clc;
+clear;
+f1 = double(imread('img_grey.tif'));
+[row, col] = size(f1);
+figure(1), imshow(uint8(f1)), title('Original Image');
+F1 = fft2(f1);
+figure(2), imagesc(log(1 + abs(F1))), title('FFT Spectrum without Centering');
+for x = 1:row
+    for y = 1:col
+        f(x, y) = f1(x, y) * (-1)^(x + y);
+    end
+end
+F = fft2(f);
+figure(3), imagesc(log(1 + abs(F))), title('FFT Spectrum Centered');
+
+
+
+12. Frequency Domain Low Pass Filter (Ideal LPF)
+
+clc;
+clear;
+f1 = double(imread('img_grey.tif'));
+[row, col] = size(f1);
+for x = 1:row
+    for y = 1:col
+        f(x, y) = f1(x, y) * (-1)^(x + y);
+    end
+end
+F = fft2(f);
+D0 = 20;
+for u = 1:row
+    for v = 1:col
+        D(u, v) = sqrt((u - row/2)^2 + (v - col/2)^2);
+        H(u, v) = D(u, v) <= D0;
+    end
+end
+G = F .* H;
+g = ifft2(G);
+figure, imshow(uint8(abs(g))), title('Ideal LPF Image');
+
+
+13. Frequency Domain Low Pass Filter (Butterworth LPF)
+
+clc;
+clear;
+f1 = double(imread('img_grey.tif'));
+[row, col] = size(f1);
+for x = 1:row
+    for y = 1:col
+        f(x, y) = f1(x, y) * (-1)^(x + y);
+    end
+end
+F = fft2(f);
+N = 3;
+Do = 50;
+for u = 1:row
+    for v = 1:col
+        D(u, v) = sqrt((u - row/2)^2 + (v - col/2)^2);
+        H(u, v) = 1 / (1 + (D(u, v) / Do)^(2*N));
+    end
+end
+G = F .* H;
+g = ifft2(G);
+figure, imshow(uint8(abs(g))), title('Butterworth LPF Image');
+
+
+14. Frequency Domain Low Pass Filter (Gaussian LPF)
+
+clc;
+clear;
+f1 = double(imread('img_grey.tif'));
+[row, col] = size(f1);
+for x = 1:row
+    for y = 1:col
+        f(x, y) = f1(x, y) * (-1)^(x + y);
+    end
+end
+F = fft2(f);
+Do = 50;
+for u = 1:row
+    for v = 1:col
+        D(u, v) = sqrt((u - row/2)^2 + (v - col/2)^2);
+        H(u, v) = exp(-(D(u, v)^2) / (2 * (Do^2)));
+    end
+end
+G = F .* H;
+g = ifft2(G);
+figure, imshow(uint8(abs(g))), title('Gaussian LPF Image');
+
+
+
+15. Frequency Domain High Pass Filter (Ideal HPF)
+
+clc;
+clear;
+f1 = double(imread('img_grey.tif'));
+[row, col] = size(f1);
+for x = 1:row
+    for y = 1:col
+        f(x, y) = f1(x, y) * (-1)^(x + y);
+    end
+end
+F = fft2(f);
+Do = 25;
+for u = 1:row
+    for v = 1:col
+        D(u, v) = sqrt((u - row/2)^2 + (v - col/2)^2);
+        H(u, v) = D(u, v) > Do;
+    end
+end
+G = F .* H;
+g = ifft2(G);
+figure, imshow(uint8(abs(g))), title('Ideal HPF Image');
+
+
+
+16. Frequency Domain High Pass Filter (Butterworth HPF)
+
+clc;
+clear;
+f1 = double(imread('img_grey.tif'));
+[row, col] = size(f1);
+for x = 1:row
+    for y = 1:col
+        f(x, y) = f1(x, y) * (-1)^(x + y);
+    end
+end
+F = fft2(f);
+N = 2;
+Do = 70;
+for u = 1:row
+    for v = 1:col
+        D(u, v) = sqrt((u - row/2)^2 + (v - col/2)^2);
+        H(u, v) = 1 - (1 / (1 + (D(u, v) / Do)^(2*N)));
+    end
+end
+G = F .* H;
+g = ifft2(G);
+figure, imshow(uint8(abs(g))), title('Butterworth HPF Image');
+
+
+
+
+
+
